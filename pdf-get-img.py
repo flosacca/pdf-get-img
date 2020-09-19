@@ -14,6 +14,9 @@ if __name__ == '__main__':
     reader = PdfFileReader(pdf)
     n = reader.getNumPages()
 
+    def pad(i):
+        return str(i).zfill(len(str(n)))
+
     for i in range(n):
         page = reader.getPage(i)
         try:
@@ -26,7 +29,7 @@ if __name__ == '__main__':
             if obj['/Subtype'] != '/Image':
                 continue
 
-            name = 'P{}-{}'.format(i, key[1:])
+            name = 'P{}-{}'.format(pad(i + 1), key[1:])
             data = obj.getData()
 
             if '/Filter' in obj:
